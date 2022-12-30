@@ -1,13 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>de.invesdwin</groupId>
-		<artifactId>invesdwin-bom</artifactId>
-		<version>1.0.18-SNAPSHOT</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
+
 	<artifactId>invesdwin-instrument</artifactId>
 	<version>1.0.15-SNAPSHOT</version>
+	<groupId>de.invesdwin</groupId>
 	<packaging>jar</packaging>
 
 	<licenses>
@@ -23,10 +19,13 @@
 		<version.compiler>1.8</version.compiler>
 
 		<version.maven-source-plugin>3.2.1</version.maven-source-plugin>
-		<version.maven-processor-plugin>4.5</version.maven-processor-plugin>
+		<version.maven-processor-plugin>5.0-jdk8-rc3</version.maven-processor-plugin>
 		<project.version.invesdwin-maven-plugin>1.0.14-SNAPSHOT</project.version.invesdwin-maven-plugin>
 		<version.maven-jar-plugin>3.3.0</version.maven-jar-plugin>
 		<version.maven-jdk-tools-wrapper>0.1</version.maven-jdk-tools-wrapper>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		
 	</properties>
 
 	<dependencyManagement>
@@ -43,39 +42,48 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
+			<version>2.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
+			<version>3.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>6.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
+			<version>6.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
+			<version>2.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-instrument</artifactId>
+			<version>6.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zeroturnaround</groupId>
 			<artifactId>zt-exec</artifactId>
+			<version>1.11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<scope>test</scope>
+			<version>2.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.olivergondza</groupId>
@@ -88,16 +96,19 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
+			<version>5.8.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite-engine</artifactId>
 			<scope>test</scope>
+			<version>1.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.burningwave</groupId>
 			<artifactId>core</artifactId>
 			<scope>test</scope>
+			<version>12.62.0</version>
 		</dependency>
 	</dependencies>
 
@@ -176,24 +187,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>de.invesdwin</groupId>
-				<artifactId>invesdwin-maven-plugin</artifactId>
-				<version>${project.version.invesdwin-maven-plugin}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>initialize</goal>
-							<goal>generate-sources</goal>
-							<goal>compile</goal>
-						</goals>
-						<configuration>
-							<useInvesdwinEclipseSettings>true</useInvesdwinEclipseSettings>
-							<codeComplianceLevel>${version.compiler}</codeComplianceLevel>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>${version.maven-jar-plugin}</version>
@@ -211,42 +204,6 @@
 		</plugins>
 	</build>
 
-	<distributionManagement>
-		<repository>
-			<id>invesdwin-oss</id>
-			<name>invesdwin-oss</name>
-			<url>https://invesdwin.de/repo/invesdwin-oss</url>
-		</repository>
-		<snapshotRepository>
-			<id>invesdwin-oss</id>
-			<name>invesdwin-oss</name>
-			<url>https://invesdwin.de/repo/invesdwin-oss</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-	<repositories>
-		<repository>
-			<id>invesdwin-oss</id>
-			<url>https://invesdwin.de/repo/invesdwin-oss-remote</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>invesdwin-oss</id>
-			<url>https://invesdwin.de/repo/invesdwin-oss-remote</url>
-		</pluginRepository>
-	</pluginRepositories>
-
-	<scm>
-		<url>https://github.com/invesdwin/invesdwin-instrument</url>
-		<connection>scm:git:https://github.com/invesdwin/invesdwin-instrument.git</connection>
-		<tag>HEAD</tag>
-	</scm>
-
-	<ciManagement>
-		<system>jenkins</system>
-		<url>https://invesdwin.de/jenkins/job/dgr-deploy-invesdwin-instrument/</url>
-	</ciManagement>
 
 	<profiles>
 		<profile>
